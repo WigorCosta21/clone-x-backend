@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "../utils/prisma";
 import { getPublicUrl } from "../utils/url";
 
@@ -37,4 +38,16 @@ export const findUserBySlug = async (slug: string) => {
       cover: getPublicUrl(user.cover),
     };
   }
+
+  return null;
+};
+
+export const createUser = async (data: Prisma.UserCreateInput) => {
+  const newUser = await prisma.user.create({ data });
+
+  return {
+    ...newUser,
+    avatar: getPublicUrl(newUser.avatar),
+    cover: getPublicUrl(newUser.cover),
+  };
 };
