@@ -39,5 +39,14 @@ export const signup: RequestHandler = async (req, res) => {
     password: hashPassword,
   });
 
-  res.json({});
+  const token = "";
+
+  res.status(200).json({
+    token,
+    user: {
+      name: newUser.name,
+      slug: newUser.slug,
+      avatar: newUser.avatar,
+    },
+  });
 };
