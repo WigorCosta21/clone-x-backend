@@ -14,27 +14,33 @@ datasource db {
 }
 
 model User {
-  slug     String  @id
-  email    String  @unique
+  slug     String      @id
+  email    String      @unique
   password String
   name     String
-  avatar   String  @default("default.jpg")
-  cover    String  @default("default.jpg")
+  avatar   String      @default("default.jpg")
+  cover    String      @default("default.jpg")
   bio      String?
   link     String?
+  tweets   Tweet[]
+  likes    TweetLike[]
 }
 
 model Tweet {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   userSlug  String
   body      String
   image     String?
-  createdAt DateTime @default(now())
-  answerOf  Int      @default(0)
+  createdAt DateTime    @default(now())
+  answerOf  Int         @default(0)
+  user      User        @relation(fields: [userSlug], references: [slug])
+  likes     TweetLike[]
 }
 
 model TweetLike {
   id       Int    @id @default(autoincrement())
   userSlug String
   tweetId  Int
+  user     User   @relation(fields: [userSlug], references: [slug])
+  twwet    Tweet  @relation(fields: [tweetId], references: [id])
 }
