@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { signupSchema } from "../schemas/signup";
-import { findUserByEmail, findUserBySlug } from "../services/user";
+import { createUser, findUserByEmail, findUserBySlug } from "../services/user";
 import slug from "slug";
 import { hash } from "bcrypt-ts";
 
@@ -31,6 +31,13 @@ export const signup: RequestHandler = async (req, res) => {
   }
 
   const hashPassword = await hash(safeData.data.password, 10);
+
+  const newUser = await createUser({
+    slug: userSlug,
+    name: safeData.data.name,
+    email: safeData.data.email,
+    password: hashPassword,
+  });
 
   res.json({});
 };
