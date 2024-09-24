@@ -50,3 +50,10 @@ model Follow {
   user1Slug String
   user2Slug String
 }
+
+model Trend {
+  id        Int      @id @default(autoincrement())
+  hashtag   String
+  counter   Int      @default(1)
+  updatedAt DateTime @default(now())
+}
