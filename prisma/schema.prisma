@@ -44,3 +44,9 @@ model TweetLike {
   user     User   @relation(fields: [userSlug], references: [slug])
   twwet    Tweet  @relation(fields: [tweetId], references: [id])
 }
+
+model Follow {
+  id        Int    @id @default(autoincrement())
+  user1Slug String
+  user2Slug String
+}
