@@ -23,3 +23,12 @@ model User {
   bio      String?
   link     String?
 }
+
+model Tweet {
+  id        Int      @id @default(autoincrement())
+  userSlug  String
+  body      String
+  image     String?
+  createdAt DateTime @default(now())
+  answerOf  Int      @default(0)
+}
