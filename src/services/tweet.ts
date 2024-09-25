@@ -28,3 +28,19 @@ export const findTweet = async (id: number) => {
 
   return null;
 };
+
+export const createTweet = async (
+  slug: string,
+  body: string,
+  answer?: number
+) => {
+  const newTweet = await prisma.tweet.create({
+    data: {
+      body,
+      userSlug: slug,
+      answerOf: answer ?? 0,
+    },
+  });
+
+  return newTweet;
+};
