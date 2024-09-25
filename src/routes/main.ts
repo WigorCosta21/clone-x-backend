@@ -1,7 +1,8 @@
 import { Router } from "express";
+import { verifyJWT } from "../utils/jwt";
 import * as pingController from "../controllers/ping";
 import * as authController from "../controllers/auth";
-import { verifyJWT } from "../utils/jwt";
+import * as tweetController from "../controllers/tweet";
 
 export const mainRouter = Router();
 
@@ -11,7 +12,7 @@ mainRouter.get("/privateping", verifyJWT, pingController.privatePing);
 mainRouter.post("/auth/signup", authController.signup);
 mainRouter.post("/auth/signin", authController.signin);
 
-// mainRouter.post("/tweet");
+mainRouter.post("/tweet", verifyJWT, tweetController.addTweet);
 // mainRouter.get("/tweet/:id");
 // mainRouter.get("/tweet/:id/answers");
 // mainRouter.post("/tweet/:id/like");

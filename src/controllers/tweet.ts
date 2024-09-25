@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { ExtendedRequest } from "../types/extended-request";
 import { addTweetSchema } from "../schemas/add-tweet";
-import { findTweet } from "../services/tweet";
+import { createTweet, findTweet } from "../services/tweet";
 
 export const addTweet = async (req: ExtendedRequest, res: Response) => {
   const safeData = addTweetSchema.safeParse(req.body);
@@ -18,5 +18,11 @@ export const addTweet = async (req: ExtendedRequest, res: Response) => {
     }
   }
 
-  res.json({});
+  const newTweet = await createTweet(
+    req.userSlug as string,
+    safeData.data.body,
+    safeData.data.answer ? parseInt(safeData.data.answer) : 0
+  );
+
+  res.json({ tweet: newTweet });
 };
